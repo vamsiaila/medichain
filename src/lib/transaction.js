@@ -1,15 +1,10 @@
 class Transaction {
-    constructor(toAddress, data) {
-        this.fromAddress = '';
+    constructor(toAddress, fromAddress, data, timestamp, id) {
+        this.id = id;
+        this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.data = data;
-        this.signature
-    }
-
-    signTransaction (key) {
-        this.fromAddress = key.public;
-        const sig = key.private.sign(JSON.stringify(this.data), 'base64');
-        this.data = sig.toDER('hex');
+        this.timestamp = timestamp;
     }
 }
 

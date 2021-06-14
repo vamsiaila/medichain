@@ -95,6 +95,25 @@ class Network {
             //do nothing;
         }
     }
+    broadcastTransactionToNetwork = async (toAddress, fromAddress, data, timestamp, id) => {
+        try {
+            await Promise.all(global.NETWORK.networkNodes.map(async node => {
+                try {
+                    const options = {
+                        uri: `${node.host}:${node.port}/api/network/register/node`,
+                        method: 'POST',
+                        body: {toAddress, fromAddress, data, timestamp, id},
+                        json: true
+                    }
+                    await request(options)
+                } catch (error) {
+                    //do nothing;
+                }
+            }));
+        } catch (error) {
+            // do nothing
+        }
+    }
 }
 
 module.exports = Network;
